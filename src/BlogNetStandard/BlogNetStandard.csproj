@@ -1,7 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
-
+  <ItemGroup>
+    <Folder Include="BackingStores\CosmosDbBackingStore" />
+    <Folder Include="BackingStores\DynamoDbBackingStore" />
+    <Folder Include="BackingStores\S3BackingStore" />
+    <Folder Include="BackingStores\SqlBackingStore" />
+  </ItemGroup>
 </Project>
