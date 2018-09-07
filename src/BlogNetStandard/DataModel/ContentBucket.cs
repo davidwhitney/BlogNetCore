@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace BlogNetStandard.DataModel
 {
     public class ContentBucket
     {
-        public string Id { get; set; }
+        public ContentBucketId Id { get; set; } = new ContentBucketId();
+        public DateTime CreatedUtc { get; set; } = DateTime.UtcNow;
         public string Name { get; set; }
-        public DateTime CreatedUtc { get; set; }
-        public List<ContentItemWithUserRef> ContentItems { get; set; }
     }
 }

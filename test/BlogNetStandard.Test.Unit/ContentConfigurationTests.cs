@@ -10,7 +10,7 @@ namespace BlogNetStandard.Test.Unit
         [Test]
         public void ForLocal_GeneratesLocalConfigStore()
         {
-            var config = ContentConfiguration.LocalStore<FileSystemBackingStore>();
+            var config = ContentConfiguration.LocalFileStore();
             
             Assert.That(config.BackingStoreSessionType, Is.EqualTo(typeof(FileSystemBackingStore)));
         }
