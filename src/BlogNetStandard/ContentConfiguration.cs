@@ -1,6 +1,6 @@
 ﻿using System;
 using BlogNetStandard.BackingStores;
-using BlogNetStandard.BackingStores.InMemoryBackingStore;
+using BlogNetStandard.BackingStores.InMemory;
 
 namespace BlogNetStandard
 {

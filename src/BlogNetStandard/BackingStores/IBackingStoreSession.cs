@@ -18,6 +18,6 @@ namespace BlogNetStandard.BackingStores
         void Save(IEnumerable<ContentItem> items);
         void Save(IEnumerable<ContentBucket> buckets);
 
-        IEnumerable<ContentItemWithUserRef> List(ContentBucketId bucketId, int batch = int.MaxValue, int limit = int.MaxValue);
+        IEnumerable<ContentItemMetadata> List(ContentBucketId bucketId, int batch = int.MaxValue, int limit = int.MaxValue);
     }
 }

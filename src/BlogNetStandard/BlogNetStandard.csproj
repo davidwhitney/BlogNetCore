@@ -4,11 +4,11 @@
     <LangVersion>7.2</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="BackingStores\CosmosDbBackingStore" />
-    <Folder Include="BackingStores\DynamoDbBackingStore" />
-    <Folder Include="BackingStores\FileSystemBackingStore\" />
-    <Folder Include="BackingStores\S3BackingStore" />
-    <Folder Include="BackingStores\SqlBackingStore" />
+    <Folder Include="BackingStores\CosmosDb\" />
+    <Folder Include="BackingStores\DynamoDb\" />
+    <Folder Include="BackingStores\FileSystem\" />
+    <Folder Include="BackingStores\S3\" />
+    <Folder Include="BackingStores\Sql\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">

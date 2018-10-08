@@ -7,15 +7,15 @@ namespace BlogNetStandard.DataModel
         public static string DefaultContentBucketId { get; } = "DEFAULT";
         public static ContentBucketId Default { get; } = new ContentBucketId(DefaultContentBucketId);
 
-        public string Id { get; set; }
+        public string Value { get; set; }
 
         public ContentBucketId(string id = null)
         {
-            Id = id ?? DefaultContentBucketId;
+            Value = id ?? DefaultContentBucketId;
         }
 
         public static ContentBucketId Of(string id) => new ContentBucketId(id);
         public static explicit operator ContentBucketId(string stringId) => new ContentBucketId(stringId);
-        public static explicit operator string(ContentBucketId id) => id.Id;
+        public static explicit operator string(ContentBucketId id) => id.Value;
     }
 }
