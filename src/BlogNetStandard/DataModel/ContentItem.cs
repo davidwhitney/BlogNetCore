@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace BlogNetStandard.DataModel
 {
-    public class ContentItem
+    public class ContentItem : IPersistable
     {
+        public AbstractIdentity GetStorageKey() => Id;
         public ContentItemId Id { get; set; }
 
         public string Body { get; set; }
@@ -13,19 +13,13 @@ namespace BlogNetStandard.DataModel
 
         public ContentItem(ContentBucketId bucketId = null)
         {
-            Id = new ContentItemId {ContentBucketId = bucketId ?? new ContentBucketId()};
+            Id = new ContentItemId
+            {
+                Value = Guid.NewGuid().ToString("N"),
+                ContentBucketId = bucketId ?? new ContentBucketId()
+            };
+
             Metadata = new ContentItemMetadata();
         }
-    }
-
-    public class ContentItemMetadata
-    {
-        public string Slug { get; set; }
-        public string Title { get; set; }
-
-        public UserRef User { get; set; }
-        public DateTime PublishDateUtc { get; set; }
-        public bool Published { get; set; } = true;
-        public List<AuditHistory> Audit { get; set; } = new List<AuditHistory>();
     }
 }

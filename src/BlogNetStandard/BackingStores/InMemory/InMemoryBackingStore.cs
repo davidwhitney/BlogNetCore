@@ -10,6 +10,7 @@ namespace BlogNetStandard.BackingStores.InMemory
     {
         private readonly Dictionary<string, string> _items = new Dictionary<string, string>();
         private readonly Dictionary<string, string> _buckets = new Dictionary<string, string>();
+        private readonly Dictionary<string, string> _users = new Dictionary<string, string>();
 
         public IEnumerable<ContentItem> Load(IEnumerable<ContentItemId> contentItemIds)
         {
@@ -33,6 +34,7 @@ namespace BlogNetStandard.BackingStores.InMemory
         public IEnumerable<ContentBucket> Load(params ContentBucketId[] contentBucketIds)
             => Load(contentBucketIds.ToList());
 
+        public void Save(params ContentItem[] items) => Save((IEnumerable<ContentItem>)items);
         public void Save(IEnumerable<ContentItem> items)
         {
             foreach (var item in items)
@@ -47,11 +49,21 @@ namespace BlogNetStandard.BackingStores.InMemory
             }
         }
 
+        public void Save(params ContentBucket[] buckets) => Save((IEnumerable<ContentBucket>)buckets);
         public void Save(IEnumerable<ContentBucket> buckets)
         {
             foreach (var item in buckets)
             {
                 _buckets[item.Id.Value] = JsonConvert.SerializeObject(item);
+            }
+        }
+
+        public void Save(params User[] users) => Save((IEnumerable<User>)users);
+        public void Save(IEnumerable<User> users)
+        {
+            foreach (var item in users)
+            {
+                _users[item.Id.Value] = JsonConvert.SerializeObject(item);
             }
         }
 

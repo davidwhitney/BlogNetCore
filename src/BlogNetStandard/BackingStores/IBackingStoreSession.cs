@@ -14,9 +14,14 @@ namespace BlogNetStandard.BackingStores
 
         IEnumerable<ContentBucket> Load(IEnumerable<ContentBucketId> contentBucketIds);
         IEnumerable<ContentBucket> Load(params ContentBucketId[] contentBucketIds);
-
+        
         void Save(IEnumerable<ContentItem> items);
         void Save(IEnumerable<ContentBucket> buckets);
+        void Save(IEnumerable<User> users);
+
+        void Save(params ContentItem[] items);
+        void Save(params ContentBucket[] buckets);
+        void Save(params User[] users);
 
         IEnumerable<ContentItemMetadata> List(ContentBucketId bucketId, int batch = int.MaxValue, int limit = int.MaxValue);
     }

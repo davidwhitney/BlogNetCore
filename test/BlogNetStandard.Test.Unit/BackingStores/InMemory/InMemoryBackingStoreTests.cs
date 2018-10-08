@@ -11,13 +11,17 @@ namespace BlogNetStandard.Test.Unit.BackingStores.InMemory
         private InMemoryBackingStore _memoryStore;
         private ContentBucket _bucket;
         private ContentItem _item;
+        private User _user;
 
         [SetUp]
         public void SetUp()
         {
             _memoryStore = new InMemoryBackingStore();
             _bucket = new ContentBucket {Name = "My Bucket"};
-            _memoryStore.Save(new[] {_bucket});
+            _user = User.Default;
+
+            _memoryStore.Save(_user);
+            _memoryStore.Save(_bucket);
 
             _item = new ContentItem(ContentBucketId.Default)
             {
@@ -45,7 +49,7 @@ namespace BlogNetStandard.Test.Unit.BackingStores.InMemory
         [Test]
         public void Load_CanSaveAndLoadItemsFromBucket()
         {
-            _memoryStore.Save(new[] {_item});
+            _memoryStore.Save(_item);
 
             var itemRetrieved = _memoryStore.Load(_item.Id).Single();
 
@@ -55,7 +59,7 @@ namespace BlogNetStandard.Test.Unit.BackingStores.InMemory
         [Test]
         public void Save_ItemAppearsInContentBucket()
         {
-            _memoryStore.Save(new[] {_item});
+            _memoryStore.Save(_item);
 
             var defaultBucket = _memoryStore.Load(ContentBucketId.Default).Single();
 
@@ -65,7 +69,7 @@ namespace BlogNetStandard.Test.Unit.BackingStores.InMemory
         [Test]
         public void Load_ReturnsACopyNotTheSameInstances()
         {
-            _memoryStore.Save(new[] {_item});
+            _memoryStore.Save(_item);
 
             var itemRetrieved = _memoryStore.Load(_item.Id);
 
