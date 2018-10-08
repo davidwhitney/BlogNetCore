@@ -12,5 +12,7 @@ namespace BlogNetStandard.DataModel
         }
 
         public static ContentBucketId Of(string id) => new ContentBucketId(id);
+        public static explicit operator ContentBucketId(string stringId) => new ContentBucketId(stringId);
+        public static explicit operator string(ContentBucketId id) => id.Id;
     }
 }

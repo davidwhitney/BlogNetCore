@@ -1,7 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
 using System.Linq;
-using BlogNetStandard.BackingStores.FileSystemBackingStore;
 using BlogNetStandard.BackingStores.InMemoryBackingStore;
 using BlogNetStandard.DataModel;
 

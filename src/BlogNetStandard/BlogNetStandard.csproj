@@ -5,6 +5,7 @@
   <ItemGroup>
     <Folder Include="BackingStores\CosmosDbBackingStore" />
     <Folder Include="BackingStores\DynamoDbBackingStore" />
+    <Folder Include="BackingStores\FileSystemBackingStore\" />
     <Folder Include="BackingStores\S3BackingStore" />
     <Folder Include="BackingStores\SqlBackingStore" />
   </ItemGroup>
