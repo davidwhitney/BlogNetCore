@@ -13,5 +13,10 @@ namespace BlogNetStandard.DataModel
         public DateTime PublishDateUtc { get; set; }
         public bool Published { get; set; }
         public List<AuditHistory> Audit { get; set; }
+
+        public ContentItem(ContentBucketId bucketId = null)
+        {
+            Id = new ContentItemId {ContentBucketId = bucketId ?? new ContentBucketId()};
+        }
     }
 }

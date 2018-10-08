@@ -4,11 +4,14 @@ namespace BlogNetStandard.DataModel
 {
     public class ContentBucketId
     {
+        public static string DefaultContentBucketId { get; } = "DEFAULT";
+        public static ContentBucketId Default { get; } = new ContentBucketId(DefaultContentBucketId);
+
         public string Id { get; set; }
 
         public ContentBucketId(string id = null)
         {
-            Id = id ?? Guid.NewGuid().ToString();
+            Id = id ?? DefaultContentBucketId;
         }
 
         public static ContentBucketId Of(string id) => new ContentBucketId(id);
