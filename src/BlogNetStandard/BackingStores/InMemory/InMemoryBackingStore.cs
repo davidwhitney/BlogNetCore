@@ -17,6 +17,9 @@ namespace BlogNetStandard.BackingStores.InMemory
                 {typeof(ContentBucket), new Dictionary<string, string>()},
             };
 
+        public IEnumerable<TType> Load<TType>(params Identity[] contentItemIds) where TType : IPersistable
+            => Load<TType>(contentItemIds.ToList());
+
         public IEnumerable<TType> Load<TType>(IEnumerable<Identity> contentItemIds) where TType : IPersistable
         {
             return _storage[typeof(TType)]
@@ -26,10 +29,8 @@ namespace BlogNetStandard.BackingStores.InMemory
                 .ToList();
         }
 
-        public IEnumerable<TType> Load<TType>(params Identity[] contentItemIds) where TType : IPersistable
-        {
-            return Load<TType>(contentItemIds.ToList());
-        }
+        public void Save<TType>(params TType[] items) where TType : IPersistable
+            => Save<TType>(items.ToList());
 
         public void Save<TType>(IEnumerable<TType> items) where TType : IPersistable
         {
@@ -37,18 +38,8 @@ namespace BlogNetStandard.BackingStores.InMemory
             {
                 _storage[typeof(TType)][item.Id.Value] = JsonConvert.SerializeObject(item);
 
-                var interceptor = GetType()
-                    .GetMethods(BindingFlags.Instance | BindingFlags.NonPublic)
-                    .Where(m => m.Name == nameof(OnSave))
-                    .SingleOrDefault(m => m.GetParameters().SingleOrDefault()?.ParameterType == typeof(TType));
-
-                interceptor?.Invoke(this, new object[] {item});
+                SaveHookFor<TType>()?.Invoke(this, new object[] {item});
             }
-        }
-
-        public void Save<TType>(params TType[] items) where TType : IPersistable
-        {
-            Save<TType>(items.ToList());
         }
 
         public IEnumerable<ContentItemMetadata> List(Identity bucketId, int batch = int.MaxValue, int limit = int.MaxValue)
@@ -58,6 +49,11 @@ namespace BlogNetStandard.BackingStores.InMemory
                 .Where(x => x.ContentBucketId.Value == bucketId.Value)
                 .Select(ci => ci.Metadata);
         }
+
+        private MethodInfo SaveHookFor<TType>() where TType : IPersistable
+            => GetType().GetMethods(BindingFlags.Instance | BindingFlags.NonPublic)
+                .Where(m => m.Name == nameof(OnSave))
+                .SingleOrDefault(m => m.GetParameters().SingleOrDefault()?.ParameterType == typeof(TType));
 
         private void OnSave(ContentItem item)
         {
@@ -72,12 +68,10 @@ namespace BlogNetStandard.BackingStores.InMemory
 
         private void OnSave(ContentBucket bucket)
         {
-
         }
 
         private void OnSave(User item)
         {
-
         }
     }
 }
