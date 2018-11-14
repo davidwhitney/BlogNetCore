@@ -2,6 +2,6 @@
 {
     public interface IPersistable
     {
-        AbstractIdentity GetStorageKey();
+        Identity Id { get; set; }
     }
 }

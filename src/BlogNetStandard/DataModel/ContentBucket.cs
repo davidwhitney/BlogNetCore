@@ -5,17 +5,21 @@ namespace BlogNetStandard.DataModel
 {
     public class ContentBucket : IPersistable
     {
-        public AbstractIdentity GetStorageKey() => Id;
-        public ContentBucketId Id { get; set; }
+        public Identity Id { get; set; }
 
         public DateTime CreatedUtc { get; set; } = DateTime.UtcNow;
         public string Name { get; set; }
 
-        public Dictionary<string, ContentItemMetadata> Items { get; set; } = new Dictionary<string, ContentItemMetadata>();
+        public Dictionary<Identity, ContentItemMetadata> Items { get; set; } = new Dictionary<Identity, ContentItemMetadata>();
 
-        public ContentBucket(ContentBucketId id = null)
+        public ContentBucket(Identity id = null)
         {
-            Id = id ?? new ContentBucketId();
+            Id = id ?? new Identity();
         }
+
+        public static ContentBucket Default(string name = null) => new ContentBucket(Identity.Default())
+        {
+            Name = name
+        };
     }
 }

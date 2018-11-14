@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Xml.Linq;
 using BlogNetStandard.DataModel;
 
 namespace BlogNetStandard.BackingStores
@@ -9,20 +8,12 @@ namespace BlogNetStandard.BackingStores
     /// </summary>
     public interface IBackingStoreSession
     {
-        IEnumerable<ContentItem> Load(IEnumerable<ContentItemId> contentItemIds);
-        IEnumerable<ContentItem> Load(params ContentItemId[] contentItemIds);
-
-        IEnumerable<ContentBucket> Load(IEnumerable<ContentBucketId> contentBucketIds);
-        IEnumerable<ContentBucket> Load(params ContentBucketId[] contentBucketIds);
+        IEnumerable<TType> Load<TType>(IEnumerable<Identity> contentItemIds) where TType : IPersistable;
+        IEnumerable<TType> Load<TType>(params Identity[] contentItemIds) where TType : IPersistable;
         
-        void Save(IEnumerable<ContentItem> items);
-        void Save(IEnumerable<ContentBucket> buckets);
-        void Save(IEnumerable<User> users);
+        void Save<TType>(IEnumerable<TType> items) where TType : IPersistable;
+        void Save<TType>(params TType[] items) where TType : IPersistable;
 
-        void Save(params ContentItem[] items);
-        void Save(params ContentBucket[] buckets);
-        void Save(params User[] users);
-
-        IEnumerable<ContentItemMetadata> List(ContentBucketId bucketId, int batch = int.MaxValue, int limit = int.MaxValue);
+        IEnumerable<ContentItemMetadata> List(Identity bucketId, int batch = int.MaxValue, int limit = int.MaxValue);
     }
 }

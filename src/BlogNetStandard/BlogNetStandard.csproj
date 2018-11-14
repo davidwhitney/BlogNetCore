@@ -4,11 +4,21 @@
     <LangVersion>7.2</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="BackingStores\CosmosDb\" />
-    <Folder Include="BackingStores\DynamoDb\" />
-    <Folder Include="BackingStores\FileSystem\" />
-    <Folder Include="BackingStores\S3\" />
-    <Folder Include="BackingStores\Sql\" />
+    <Compile Remove="BackingStores\CosmosDb\**" />
+    <Compile Remove="BackingStores\DynamoDb\**" />
+    <Compile Remove="BackingStores\FileSystem\**" />
+    <Compile Remove="BackingStores\S3\**" />
+    <Compile Remove="BackingStores\Sql\**" />
+    <EmbeddedResource Remove="BackingStores\CosmosDb\**" />
+    <EmbeddedResource Remove="BackingStores\DynamoDb\**" />
+    <EmbeddedResource Remove="BackingStores\FileSystem\**" />
+    <EmbeddedResource Remove="BackingStores\S3\**" />
+    <EmbeddedResource Remove="BackingStores\Sql\**" />
+    <None Remove="BackingStores\CosmosDb\**" />
+    <None Remove="BackingStores\DynamoDb\**" />
+    <None Remove="BackingStores\FileSystem\**" />
+    <None Remove="BackingStores\S3\**" />
+    <None Remove="BackingStores\Sql\**" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />

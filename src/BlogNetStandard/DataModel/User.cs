@@ -5,8 +5,8 @@ namespace BlogNetStandard.DataModel
 {
     public class User : IPersistable
     {
-        public AbstractIdentity GetStorageKey() => Id;
-        public UserId Id { get; set; }
+        public Identity Id { get; set; }
+        public Identity GetStorageKey() => Id;
 
         public List<Role> Roles { get; set; }
         public string Name { get; set; }
@@ -15,6 +15,8 @@ namespace BlogNetStandard.DataModel
         
         public List<ContentItemRef> Published { get; set; } = new List<ContentItemRef>();
 
-        public static User Default { get; } = new User {CreatedUtc = DateTime.MinValue, Id = UserId.Default, DisplayName = "", Name = ""};
+        public static User Default { get; } = new User {CreatedUtc = DateTime.MinValue, Id = Identity.Of(Identity.DefaultId), DisplayName = "Admin", Name = "Admin"};
+
+        public UserRef ToRef() => new UserRef {Id = Id, DisplayName = DisplayName, Name = Name};
     }
 }

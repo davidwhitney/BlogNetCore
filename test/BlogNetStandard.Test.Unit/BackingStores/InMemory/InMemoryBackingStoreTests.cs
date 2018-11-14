@@ -11,39 +11,39 @@ namespace BlogNetStandard.Test.Unit.BackingStores.InMemory
         private InMemoryBackingStore _memoryStore;
         private ContentBucket _bucket;
         private ContentItem _item;
-        private User _user;
 
         [SetUp]
         public void SetUp()
         {
             _memoryStore = new InMemoryBackingStore();
-            _bucket = new ContentBucket {Name = "My Bucket"};
-            _user = User.Default;
+            _bucket = ContentBucket.Default("My Bucket");
 
-            _memoryStore.Save(_user);
+            _memoryStore.Save(User.Default);
             _memoryStore.Save(_bucket);
 
-            _item = new ContentItem(ContentBucketId.Default)
+            _item = new ContentItem(User.Default.ToRef())
             {
-                Metadata = new ContentItemMetadata {Title = "Some post"},
-                Body = "Some content",
+                Metadata = {Title = "Some post"},
+                Body = "Some content"
             };
         }
 
         [Test]
         public void Load_BucketExists_ReturnsSomething()
         {
-            var bucket = _memoryStore.Load(ContentBucketId.Default).Single();
+            var bucket = _memoryStore.Load<ContentBucket>(Identity.Default()).Single();
 
             Assert.That(bucket, Is.Not.Null);
+            Assert.That(bucket.Name, Is.EqualTo("My Bucket"));
         }
 
         [Test]
-        public void Load_BucketExists_NameIsCorrect()
+        public void Load_UserExists_NameIsCorrect()
         {
-            var bucket = _memoryStore.Load(ContentBucketId.Default).Single();
+            var user = _memoryStore.Load<User>(Identity.Default()).Single();
 
-            Assert.That(bucket.Name, Is.EqualTo("My Bucket"));
+            Assert.That(user, Is.Not.Null);
+            Assert.That(user.Name, Is.EqualTo("Admin"));
         }
 
         [Test]
@@ -51,7 +51,7 @@ namespace BlogNetStandard.Test.Unit.BackingStores.InMemory
         {
             _memoryStore.Save(_item);
 
-            var itemRetrieved = _memoryStore.Load(_item.Id).Single();
+            var itemRetrieved = _memoryStore.Load<ContentItem>(_item.Id).Single();
 
             Assert.That(itemRetrieved.Metadata.Title, Is.EqualTo("Some post"));
         }
@@ -61,9 +61,9 @@ namespace BlogNetStandard.Test.Unit.BackingStores.InMemory
         {
             _memoryStore.Save(_item);
 
-            var defaultBucket = _memoryStore.Load(ContentBucketId.Default).Single();
+            var defaultBucket = _memoryStore.Load<ContentBucket>(Identity.Default()).Single();
 
-            Assert.That(defaultBucket.Items.Any(i => i.Key == _item.Id.Value));
+            Assert.That(defaultBucket.Items.Any(i => i.Key.Value == _item.Id.Value));
         }
 
         [Test]
@@ -71,7 +71,7 @@ namespace BlogNetStandard.Test.Unit.BackingStores.InMemory
         {
             _memoryStore.Save(_item);
 
-            var itemRetrieved = _memoryStore.Load(_item.Id);
+            var itemRetrieved = _memoryStore.Load<ContentItem>(_item.Id);
 
             Assert.That(itemRetrieved.Single(), Is.Not.EqualTo(_item));
         }
