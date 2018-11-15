@@ -8,7 +8,6 @@ namespace BlogNetStandard
     {
         public Type BackingStoreSessionType { get; set; }
         public Type BackingStoreSearchProvider { get; set; }
-        public string RemoteContentStoreRoot { get; set; }
         
         public static ContentConfiguration MemoryStore()
         {

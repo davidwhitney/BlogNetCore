@@ -13,5 +13,10 @@ namespace BlogNetStandard
             ContentConfiguration = contentConfiguration;
             Session = (IBackingStoreSession) Activator.CreateInstance(contentConfiguration.BackingStoreSessionType);
         }
+
+        public ContentClient(IBackingStoreSession backingStore)
+        {
+            Session = backingStore;
+        }
     }
 }
